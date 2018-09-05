@@ -39,7 +39,7 @@ function deleteMessageAndRespond(chatId, messageId, response) {
 
 //forward_from = optional param of orig author. If exists, the msg is forwarded
 function forwardMessageCheck(msg) {
-  return (msg.forward_from);
+  return (msg.forward_from || msg.forward_from_chat || msg.forward_date);
 }
 
 function blacklistWordsCheck(msg) {
