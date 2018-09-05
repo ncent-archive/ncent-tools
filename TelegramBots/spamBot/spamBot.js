@@ -68,8 +68,8 @@ async function deleteRestrictedMessages(msg) {
   const username = author.username; // TODO examine case of author undefined
   const chatId = msg.chat.id;
   const messageId = msg.message_id;
-  // isAdmin(chatId, author.id).then((res)=>{
-    // if (res === true) { return; }
+  isAdmin(chatId, author.id).then((res)=>{
+    if (res === true) { return; }
     if (forwardMessageCheck(msg)) {
       deleteMessageAndRespond(chatId, messageId, forwardedMessageRejection(username));
     } else if (blacklistWordsCheck(msg)) {
@@ -77,7 +77,7 @@ async function deleteRestrictedMessages(msg) {
     } else if (blacklistUsernameCheck(username)) {
       deleteMessageAndRespond(chatId, messageId, badUsernameRejection(username));
     }
-  // });
+  });
 }
 
 bot.on('message', deleteRestrictedMessages);
