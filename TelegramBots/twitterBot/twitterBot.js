@@ -37,7 +37,6 @@ const retrieveLatestTweet = (callback) => {
 
 cron.schedule('*/5 * * * *', () => {
   retrieveLatestTweet((tweet) => {
-    console.log(tweet);
     const latestTweetId = tweet.id;
     const latestTweetText = tweet.full_text;
     if (latestTweetId !== params.since_id) {
