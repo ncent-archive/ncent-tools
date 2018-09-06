@@ -21,7 +21,9 @@ const client = new Twitter({
   access_token_secret: ACCESS_TOKEN_SECRET
 });
 
-let params = {screen_name: 'KK_ncnt', since_id: 1};
+// Extended tweet_mode to avoid message truncation
+// since_id to only retrieve new messages and record last message sent to chat
+let params = {screen_name: 'KK_ncnt', since_id: 1, tweet_mode: 'extended'};
 
 const retrieveLatestTweet = (callback) => {
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
@@ -35,11 +37,12 @@ const retrieveLatestTweet = (callback) => {
 
 cron.schedule('*/5 * * * *', () => {
   retrieveLatestTweet((tweet) => {
+    console.log(tweet);
     const latestTweetId = tweet.id;
-    const latestTweetText = tweet.text;
+    const latestTweetText = tweet.full_text;
     if (latestTweetId !== params.since_id) {
       params.since_id = latestTweetId;
-      bot.sendMessage(CHAT_ID, latestTweetText);
+      bot.sendMessage(CHAT_ID, latestTweetText, {disable_web_page_preview: true});
     }
   });
 });
