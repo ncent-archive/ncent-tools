@@ -76,9 +76,9 @@ async function deleteRestrictedMessages(msg) {
     if (res === true) { return; }
     if (forwardMessageCheck(msg)) {
       deleteMessageAndRespond(chatId, messageId, forwardedMessageRejection(username));
-    } else if (blacklistWordsCheck(msg.text)) {
+    } else if (msg.text && blacklistWordsCheck(msg.text)) {
 			deleteMessageAndRespond(chatId, messageId, badWordRejection(username));
-    } else if (blacklistUsernameCheck(username)) {
+    } else if (username && blacklistUsernameCheck(username)) {
       deleteMessageAndRespond(chatId, messageId, badUsernameRejection(username));
     }
   });
