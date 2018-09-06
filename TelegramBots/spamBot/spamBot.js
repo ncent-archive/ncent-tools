@@ -37,13 +37,17 @@ function deleteMessageAndRespond(chatId, messageId, response) {
 	bot.sendMessage(chatId, response);
 }
 
-//forward_from = optional param of orig author. If exists, the msg is forwarded
 function forwardMessageCheck(msg) {
   return (msg.forward_from || msg.forward_from_chat || msg.forward_date);
 }
 
 function blacklistWordsCheck(msg) {
-	// check msg.text for inclusion
+	const lowercaseWord = msg.toLowerCase();
+	for (let i = 0; i < blacklistedWords.length; i++) {
+		if (lowercaseWord.includes(blacklistedWords[i])) {
+			return true;
+		}
+	}
 	return false;
 }
 
@@ -64,20 +68,20 @@ async function isAdmin(chatId, authorId) {
 }
 
 async function deleteRestrictedMessages(msg) {
-  const author = msg.from; //optional param; empty for messages sent to channels
-  const username = author.username; // TODO examine case of author undefined
+  const author = msg.from;
+  const username = author.username;
   const chatId = msg.chat.id;
   const messageId = msg.message_id;
-  isAdmin(chatId, author.id).then((res)=>{
-    if (res === true) { return; }
+  // isAdmin(chatId, author.id).then((res)=>{
+    // if (res === true) { return; }
     if (forwardMessageCheck(msg)) {
       deleteMessageAndRespond(chatId, messageId, forwardedMessageRejection(username));
-    } else if (blacklistWordsCheck(msg)) {
-      // TODO implement blacklist word check w/ badWordRejection
+    } else if (blacklistWordsCheck(msg.text)) {
+			deleteMessageAndRespond(chatId, messageId, badWordRejection(username));
     } else if (blacklistUsernameCheck(username)) {
       deleteMessageAndRespond(chatId, messageId, badUsernameRejection(username));
     }
-  });
+  // });
 }
 
 bot.on('message', deleteRestrictedMessages);
