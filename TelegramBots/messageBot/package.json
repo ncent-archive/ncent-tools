@@ -1,0 +1,15 @@
+{
+  "name": "telegrambots",
+  "version": "1.0.0",
+  "description": "node modules for telegram bots",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ncent",
+  "license": "ISC",
+  "dependencies": {
+    "node-cron": "^1.2.1",
+    "node-telegram-bot-api": "^0.30.0"
+  }
+}
