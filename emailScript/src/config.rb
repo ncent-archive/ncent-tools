@@ -2,7 +2,7 @@ $config = {
   from: 'noreply@ncnt.io',
   cc_addresses: [],
   bcc_addresses: [],
-  template_name: 'unique_template_name2',
+  template_name: 'unique_template_name',
   default_first_name: 'Valued',
   default_last_name: 'supporter',
   email_subject: 'testAWS',

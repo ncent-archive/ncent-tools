@@ -28,13 +28,5 @@ Modify the `config.rb` file to identify these documents and other specifications
 ```
 sh dockerExec.sh
 ```
-
-## Stop
-```
-docker rm -f sesContainer
-```
-
-## Logs
-```
-docker logs sesContainer
-```
+You will execute this for each set of emails that you want to send. Executing
+this more than once will resend everything.
