@@ -1,0 +1,3 @@
+Hi I like to code.
+{{first_name}} you're so cool. I like your last name, {{last_name}}
+We are only sending the test text
