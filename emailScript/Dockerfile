@@ -14,10 +14,10 @@ RUN apk update && \
 
 WORKDIR .
 
-COPY Gemfile .
-COPY Gemfile.lock .
+COPY includes/Gemfile .
+COPY includes/Gemfile.lock .
 RUN bundle install
 
 COPY . .
 
-CMD [ "ruby", "send.rb" ]
+CMD [ "ruby", "src/send.rb" ]
