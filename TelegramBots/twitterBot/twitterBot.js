@@ -38,10 +38,12 @@ const retrieveLatestTweet = (callback) => {
 cron.schedule('*/5 * * * *', () => {
   retrieveLatestTweet((tweet) => {
     const latestTweetId = tweet.id;
+    const latestTweetIdStr = tweet.id_str;
     const latestTweetText = tweet.full_text;
     if (latestTweetId !== params.since_id) {
       params.since_id = latestTweetId;
-      bot.sendMessage(CHAT_ID, latestTweetText, {disable_web_page_preview: true});
+      const fullMessage = `${tweet.full_text}\nhttps://twitter.com/${params.screen_name}/status/${latestTweetIdStr}`
+      bot.sendMessage(CHAT_ID, fullMessage, {disable_web_page_preview: true});
     }
   });
 });
