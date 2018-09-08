@@ -72,15 +72,21 @@ async function deleteRestrictedMessages(msg) {
   const username = author.username;
   const chatId = msg.chat.id;
   const messageId = msg.message_id;
+
+	console.log("NEW_MESSAGE:", msg);
   isAdmin(chatId, author.id).then((res)=>{
-    if (res === true) { return; }
+    if (res === true) { console.log("Filtered admin message"); return; }
     if (forwardMessageCheck(msg)) {
+			console.log("--Deleting forwarded message");
       deleteMessageAndRespond(chatId, messageId, forwardedMessageRejection(username));
     } else if (msg.text && blacklistWordsCheck(msg.text)) {
+			console.log("--Delete message with blacklisted word");
 			deleteMessageAndRespond(chatId, messageId, badWordRejection(username));
     } else if (username && blacklistUsernameCheck(username)) {
+			console.log("--Deleted message from blacklisted username")
       deleteMessageAndRespond(chatId, messageId, badUsernameRejection(username));
     }
+		console.log("Message was not filtered");
   });
 }
 
