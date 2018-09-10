@@ -31,6 +31,7 @@ const retrieveLatestTweet = (callback) => {
       if (tweets[0]) {
         callback(tweets[0]);
       } else {
+        console.log(`tweets[0] undefined at ${Date.now()}`);
         console.log(tweets);
       }
     } else {
