@@ -28,7 +28,12 @@ let params = {screen_name: 'KK_ncnt', since_id: 1, tweet_mode: 'extended'};
 const retrieveLatestTweet = (callback) => {
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
     if (!error) {
-      callback(tweets[0]);
+      if (tweets[0]) {
+        callback(tweets[0]);
+      } else {
+        console.log(`tweets[0] undefined at ${Date.now()}`);
+        console.log(tweets);
+      }
     } else {
       console.log(error);
     }
