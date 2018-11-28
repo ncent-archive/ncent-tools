@@ -40,7 +40,7 @@ const retrieveLatestTweet = (callback) => {
   });
 };
 
-cron.schedule('*/15 * * * *', () => {
+cron.schedule('0 8,17 * * *', () => {
   retrieveLatestTweet((tweet) => {
     const latestTweetId = tweet.id;
     const latestTweetIdStr = tweet.id_str;
